@@ -1,8 +1,6 @@
 city_code = 1
 category = 'light'
-last_post_date = 0
-tokens = []
-posts = [] 
+last_post_date = 0 
 min_price = 10000000
 max_price = 600000000
 min_usage = 1

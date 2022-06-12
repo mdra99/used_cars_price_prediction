@@ -9,11 +9,11 @@ posts = []
 
 for page in range(1, 400):
     
-    payload = {"json_schema": {"category": {"value": category}, \
-    "price": {"max": {c.max_price},"min": {c.min_price}}, \
-        "usage": {"max": {c.max_usage},"min": {c.min_usage}}}, "last-post-date":c.last_post_date, "page":page}
+    payload = {"json_schema": {"category": {"value": c.category}, \
+    "price": {"max": c.max_price,"min": c.min_price}, \
+        "usage": {"max": c.max_usage,"min": c.min_usage}}, "last-post-date":c.last_post_date, "page":page}
 
-    response = requests.post(c.url, json = payload)
+    response = requests.post(url = c.url, json = payload)
     data = json.loads(response.content)
 
     tokens = tokens + ([widget['data']['token'] for widget in data['widget_list']])
@@ -43,4 +43,4 @@ for token in tokens:
 
 df = pd.DataFrame(posts, columns = ['token', 'attributes', 'description'])
 data = pd.concat([df.drop(['attributes'], axis=1), df['attributes'].apply(pd.Series)], axis=1)
-data.to_csv('data2.csv', index=False)
+data.to_csv('data.csv', index=False, mode='a')
