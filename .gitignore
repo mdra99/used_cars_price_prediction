@@ -1,2 +1,5 @@
 venv
 *.csv
+log.txt
+test.ipynb
+__pycache__

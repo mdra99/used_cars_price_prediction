@@ -2,12 +2,13 @@ import requests
 import json
 import pandas as pd
 import config as c
-
+import traceback
+from datetime import datetime
 
 tokens = []
 posts = [] 
 
-for page in range(1, 400):
+for page in range(1, 51):
     
     payload = {"json_schema": {"category": {"value": c.category}, \
     "price": {"max": c.max_price,"min": c.min_price}, \
@@ -27,6 +28,9 @@ for token in tokens:
     try:
         data = json.loads(response.content)
     except:
+        with open('log.txt', 'a') as f:
+            msg = str(datetime.today()) + traceback.format_exc() + '-'*60 + '\n'
+            f.write(msg)
         missed.append(token)
 
     try:
@@ -38,6 +42,9 @@ for token in tokens:
         posts.append([token, dict(zip(keys,values)), data['widgets']['description']])
     
     except KeyError:
+        with open('log.txt', 'a') as f:
+            msg = str(datetime.today()) + traceback.format_exc() + '-'*40 + '\n'
+            f.write(msg)
         missed.append(token)
 
 
