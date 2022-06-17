@@ -3,3 +3,4 @@ venv
 log.txt
 test.ipynb
 __pycache__
+data.json

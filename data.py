@@ -12,9 +12,15 @@ posts = []
 
 for page in range(1, 51):
     
-    payload = {"json_schema": {"category": {"value": c.category}, \
-    "price": {"max": c.max_price,"min": c.min_price}, \
-        "usage": {"max": c.max_usage,"min": c.min_usage}}, "last-post-date":c.last_post_date, "page":page}
+    payload = {
+        "json_schema": {
+            "category": {"value": c.category},
+            "price": {"max": c.max_price,"min": c.min_price},
+            "usage": {"max": c.max_usage,"min": c.min_usage},
+            "production-year": {"min": c.min_production_year}
+            }, 
+    "last-post-date":c.last_post_date,
+    "page":page}
 
     try:
         response = requests.post(url = c.url, json = payload)
@@ -56,7 +62,7 @@ for token in tokens:
 with open('data.json', encoding='utf-8') as f:
     data = json.load(f)
 
-data.append(posts)
+data = data + posts
 
 with open('data.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, ensure_ascii=False, indent=4)
